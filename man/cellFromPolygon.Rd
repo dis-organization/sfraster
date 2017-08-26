@@ -20,7 +20,7 @@ a list of cell numbers
 Get cell number(s) of a Raster* object from polygon objects.
 }
 \details{
-See \code{\link[raster]{cellFromPolygon}} for more details.
+See \code{\link[raster]{cellFrom}} for more details.
 }
 \examples{
 x <- read_sf(system.file("shape/nc.shp", package="sf"))

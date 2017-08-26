@@ -10,6 +10,8 @@ rasterize.sf(x, y, ...)
 \item{x}{an sf object with a geometry of POLYGON or MULTIPOLYGON}
 
 \item{y}{RasterLayer object (raster template)}
+
+\item{...}{See \code{\link[fasterize]{fasterize}} for more arguments}
 }
 \value{
 A raster of the same size, extent, resolution and projection as the provided raster template

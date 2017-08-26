@@ -8,11 +8,16 @@ projection(x, asText = TRUE)
 }
 \arguments{
 \item{x}{Raster*, sf, or Spatial object}
+
+\item{asText}{logical. If TRUE, the projection is returned as text. Otherwise a CRS object is returned}
 }
 \value{
 character object
 }
 \description{
+Get the coordinate reference system (CRS) of a Raster*, sf, or Spatial object.
+}
+\details{
 See \code{\link[raster]{projection}} for more details.
 }
 \examples{

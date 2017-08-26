@@ -1,10 +1,12 @@
 Package: sfraster
 Title: Support for Raster with Simple Features from the 'sf' Package
-Version: 0.0.0.9001
+Version: 0.0.0.9003
 Authors@R: person("Michael", "Sumner", email = "mdsumner@gmail.com", role = c("aut", "cre"))
-Description: Raster and 'sf'.
+Description: Support for Raster with Simple Features from the 'sf' Package.
+  It includes, for example creation of a RasterLayer object and rasterization based on the sf objects.
 Depends: 
   R (>= 3.4.1), 
+  dplyr, 
   fasterize,
   raster, 
   sf,

@@ -18,7 +18,7 @@ vector of cell numbers
 Get cell number(s) of a Raster* object from x and y coordinates.
 }
 \details{
-See \code{\link[raster]{cellFromXY}} for more details.
+See \code{\link[raster]{cellFrom}} for more details.
 }
 \examples{
 x <- read_sf(system.file("shape/nc.shp", package="sf"))

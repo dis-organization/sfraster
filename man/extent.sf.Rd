@@ -4,7 +4,7 @@
 \alias{extent.sf}
 \title{Extent}
 \usage{
-extent.sf(x, ...)
+extent.sf(x)
 }
 \arguments{
 \item{x}{An sf object}

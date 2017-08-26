@@ -13,6 +13,7 @@
 #' @inheritParams raster::raster
 #'
 #' @return RasterLayer
+#'
 #' @export
 #' @examples
 #' x <- read_sf(system.file("shape/nc.shp", package="sf"))
@@ -42,7 +43,7 @@ raster <- function(x, ...) {
 #' xmax(x)
 #' ymin(x)
 #' ymax(x)
-extent.sf <- function(x, ...) {
+extent.sf <- function(x) {
   raster::extent(unclass(sf::st_bbox(x))[c("xmin", "xmax", "ymin", "ymax")])
 }
 setMethod(raster::extent, "sf", extent.sf)
@@ -65,10 +66,12 @@ setMethod(raster::ymax, "sf", ymax.sf)
 
 #' Get a coordinate reference system (projection)
 #'
+#' Get the coordinate reference system (CRS) of a Raster*, sf, or Spatial object.
+#'
 #' See \code{\link[raster]{projection}} for more details.
 #'
 #' @param x Raster*, sf, or Spatial object
-#' @inheritParams raster::raster
+#' @param asText logical. If TRUE, the projection is returned as text. Otherwise a CRS object is returned
 #'
 #' @return character object
 #' @export
@@ -87,7 +90,7 @@ projection <- function(x, asText = TRUE) {
 #'
 #' Get cell number(s) of a Raster* object from x and y coordinates.
 #'
-#' See \code{\link[raster]{cellFromXY}} for more details.
+#' See \code{\link[raster]{cellFrom}} for more details.
 #'
 #' @param object Raster* object (or a SpatialPixels* or SpatialGrid* object)
 #' @param xy matrix of x and y coordinates, sf, SpatialPoints or SpatialPointsDataFrame object
@@ -110,7 +113,7 @@ cellFromXY <- function(object, xy) {
 #'
 #' Get cell number(s) of a Raster* object from line objects.
 #'
-#' See \code{\link[raster]{cellFromLine}} for more details.
+#' See \code{\link[raster]{cellFrom}} for more details.
 #'
 #' @param object Raster* object (or a SpatialPixels* or SpatialGrid* object)
 #' @param lns sf (linestring or mutlilinestring) or SpatialLines object
@@ -132,7 +135,7 @@ cellFromLine <- function(object, lns) {
 #'
 #' Get cell number(s) of a Raster* object from polygon objects.
 #'
-#' See \code{\link[raster]{cellFromPolygon}} for more details.
+#' See \code{\link[raster]{cellFrom}} for more details.
 #'
 #' @param object Raster* object (or a SpatialPixels* or SpatialGrid* object)
 #' @param p sf (polygon or mutlipolygon) or SpatialPolygons object
@@ -158,6 +161,7 @@ cellFromPolygon <- function (object, p, weights = FALSE) {
 #'
 #' @param x an sf object with a geometry of POLYGON or MULTIPOLYGON
 #' @param y RasterLayer object (raster template)
+#' @param ... See \code{\link[fasterize]{fasterize}} for more arguments
 #' @inheritParams fasterize::fasterize
 #'
 #' @return A raster of the same size, extent, resolution and projection as the provided raster template
