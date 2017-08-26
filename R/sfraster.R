@@ -204,7 +204,10 @@ setMethod(raster::rasterize, "sf", rasterize.sf)
 #' plot(x, add = TRUE)
 mask <- function(x, mask, ...) {
   if (inherits(mask, "sf")) {
-    out <- raster::mask(x, mask = as(mask, "Spatial"), ...)
+    out <- x
+    fmask <- fasterize::fasterize(mask, x)
+    out[is.na(fmask)] <- NA
+#    out <- raster::mask(x, mask = as(mask, "Spatial"), ...)
   } else {
     out <- raster::mask(x, mask, ...)
   }
