@@ -2,15 +2,23 @@
 % Please edit documentation in R/sfraster.R
 \name{cellFromXY}
 \alias{cellFromXY}
-\title{Title}
+\title{Get cell number from x and y coordinates}
 \usage{
 cellFromXY(object, xy)
+}
+\arguments{
+\item{object}{Raster* object (or a SpatialPixels* or SpatialGrid* object)}
+
+\item{xy}{matrix of x and y coordinates, sf, SpatialPoints or SpatialPointsDataFrame object}
 }
 \value{
 
 }
 \description{
-Title
+Get cell number(s) of a Raster* object from x and y coordinates.
+}
+\details{
+See [raster::cellFromXY()] for more details.
 }
 \examples{
 x <- read_sf(system.file("shape/nc.shp", package="sf"))

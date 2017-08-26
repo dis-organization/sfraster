@@ -2,15 +2,25 @@
 % Please edit documentation in R/sfraster.R
 \name{raster}
 \alias{raster}
-\title{Title}
+\title{Create a RasterLayer object based on a sf object}
 \usage{
 raster(x, ...)
 }
 \arguments{
+\item{x}{filename (character), Extent, Raster*, sf object, SpatialPixels*,
+SpatialGrid*, object, 'image', matrix, im, or missing.
+Supported file types are the 'native' raster package format and
+those that can be read via rgdal (see readGDAL).}
+
 \item{...}{}
 }
 \description{
-Title
+Methods to create a RasterLayer object. RasterLayer objects can be created from
+scratch, a file, an Extent object, a matrix, an 'image' object, or from a Raster*,
+sf, Spatial*, im (spatstat) asc, kasc (adehabitat*), grf (geoR) or kde object.
+}
+\details{
+See [raster::raster()] for more details.
 }
 \examples{
 x <- read_sf(system.file("shape/nc.shp", package="sf"))

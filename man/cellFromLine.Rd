@@ -2,12 +2,20 @@
 % Please edit documentation in R/sfraster.R
 \name{cellFromLine}
 \alias{cellFromLine}
-\title{Title}
+\title{Get cell number from line objects}
 \usage{
 cellFromLine(object, lns)
 }
+\arguments{
+\item{object}{Raster* object (or a SpatialPixels* or SpatialGrid* object)}
+
+\item{lns}{sf (linestring or mutlilinestring) or SpatialLines object}
+}
 \description{
-Title
+Get cell number(s) of a Raster* object from line objects.
+}
+\details{
+See [raster::cellFromLine()] for more details.
 }
 \examples{
 x <- read_sf(system.file("shape/nc.shp", package="sf"))

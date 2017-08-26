@@ -2,12 +2,22 @@
 % Please edit documentation in R/sfraster.R
 \name{cellFromPolygon}
 \alias{cellFromPolygon}
-\title{Title}
+\title{Get cell number from polygons}
 \usage{
 cellFromPolygon(object, p, weights = FALSE)
 }
+\arguments{
+\item{object}{Raster* object (or a SpatialPixels* or SpatialGrid* object)}
+
+\item{p}{sf (polygon or mutlipolygon) or SpatialPolygons object}
+
+\item{weights}{Logical. If TRUE, the fraction of each cell that is covered is also returned}
+}
 \description{
-Title
+Get cell number(s) of a Raster* object from polygon objects.
+}
+\details{
+See [raster::cellFromPolygon()] for more details.
 }
 \examples{
 x <- read_sf(system.file("shape/nc.shp", package="sf"))

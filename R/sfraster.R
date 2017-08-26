@@ -1,6 +1,15 @@
-#' Title
+#' Create a RasterLayer object based on a sf object
 #'
-#' @param x
+#' Methods to create a RasterLayer object. RasterLayer objects can be created from
+#' scratch, a file, an Extent object, a matrix, an 'image' object, or from a Raster*,
+#' sf, Spatial*, im (spatstat) asc, kasc (adehabitat*), grf (geoR) or kde object.
+#'
+#' See [raster::raster()] for more details.
+#'
+#' @param x filename (character), Extent, Raster*, sf object, SpatialPixels*,
+#'   SpatialGrid*, object, 'image', matrix, im, or missing.
+#'   Supported file types are the 'native' raster package format and
+#'   those that can be read via rgdal (see readGDAL).
 #' @param ...
 #'
 #' @return
@@ -17,9 +26,11 @@ raster <- function(x, ...) {
   }
   out
 }
-#' Title
+#' Extent
 #'
-#' @param x
+#' This function returns an Extent object of an sf object
+#'
+#' @param x An sf object
 #' @param ...
 #'
 #' @return
@@ -51,9 +62,12 @@ ymax.sf <- function(x) {
   unclass(sf::st_bbox(x))[c("ymax")]
 }
 setMethod(raster::ymax, "sf", ymax.sf)
-#' Title
+
+#' Get or set a coordinate reference system (projection)
 #'
-#' @param x
+#' See [raster::projection()] for more details.
+#'
+#' @param x Raster*, sf, or Spatial object
 #' @param ...
 #'
 #' @return
@@ -69,10 +83,14 @@ projection <- function(x, asText = TRUE) {
   }
 }
 
-#' Title
+#' Get cell number from x and y coordinates
 #'
-#' @param object
-#' @param xy
+#' Get cell number(s) of a Raster* object from x and y coordinates.
+#'
+#' See [raster::cellFromXY()] for more details.
+#'
+#' @param object Raster* object (or a SpatialPixels* or SpatialGrid* object)
+#' @param xy matrix of x and y coordinates, sf, SpatialPoints or SpatialPointsDataFrame object
 #' @export
 #' @return
 #'
@@ -87,10 +105,15 @@ cellFromXY <- function(object, xy) {
     raster::cellFromXY(object, xy)
   }
 }
-#' Title
+
+#' Get cell number from line objects
 #'
-#' @param object
-#' @param lns
+#' Get cell number(s) of a Raster* object from line objects.
+#'
+#' See [raster::cellFromLine()] for more details.
+#'
+#' @param object Raster* object (or a SpatialPixels* or SpatialGrid* object)
+#' @param lns sf (linestring or mutlilinestring) or SpatialLines object
 #' @export
 #' @return
 #' @examples
@@ -104,11 +127,16 @@ cellFromLine <- function(object, lns) {
     raster::cellFromLine(object, lns)
   }
 }
-#' Title
+
+#' Get cell number from polygons
 #'
-#' @param x
-#' @param y
-#' @param ...
+#' Get cell number(s) of a Raster* object from polygon objects.
+#'
+#' See [raster::cellFromPolygon()] for more details.
+#'
+#' @param object Raster* object (or a SpatialPixels* or SpatialGrid* object)
+#' @param p sf (polygon or mutlipolygon) or SpatialPolygons object
+#' @param weights Logical. If TRUE, the fraction of each cell that is covered is also returned
 #' @export
 #' @return
 #' @examples
@@ -121,10 +149,15 @@ cellFromPolygon <- function (object, p, weights = FALSE) {
   raster::cellFromPolygon(object, p, weights = weights)
   }
     }
-#' Title
+
+#' Rasterize an sf object of polygons
 #'
-#' @param x
-#' @param y
+#' Rasterize set of sf objects (polygon or mulitpolygon)
+#'
+#' See [fasterize::fasterize()] for more details.
+#'
+#' @param x an sf object with a geometry of POLYGON or MULTIPOLYGON
+#' @param y RasterLayer object
 #' @param ...
 #'
 #' @return

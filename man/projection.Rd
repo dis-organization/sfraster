@@ -2,15 +2,17 @@
 % Please edit documentation in R/sfraster.R
 \name{projection}
 \alias{projection}
-\title{Title}
+\title{Get or set a coordinate reference system (projection)}
 \usage{
 projection(x, asText = TRUE)
 }
 \arguments{
+\item{x}{Raster*, sf, or Spatial object}
+
 \item{...}{}
 }
 \description{
-Title
+See [raster::projection()] for more details.
 }
 \examples{
 x <- read_sf(system.file("shape/nc.shp", package="sf"))

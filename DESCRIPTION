@@ -1,13 +1,14 @@
 Package: sfraster
 Title: Support for Raster with Simple Features from the 'sf' Package
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: person("Michael", "Sumner", email = "mdsumner@gmail.com", role = c("aut", "cre"))
 Description: Raster and 'sf'.
 Depends: 
   R (>= 3.4.1), 
   fasterize,
   raster, 
-  sf
+  sf,
+  spbabel
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

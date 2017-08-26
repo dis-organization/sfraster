@@ -2,18 +2,20 @@
 % Please edit documentation in R/sfraster.R
 \name{extent.sf}
 \alias{extent.sf}
-\title{Title}
+\title{Extent}
 \usage{
 extent.sf(x, ...)
 }
 \arguments{
+\item{x}{An sf object}
+
 \item{...}{}
 }
 \value{
 
 }
 \description{
-Title
+This function returns an Extent object of an sf object
 }
 \examples{
 x <- read_sf(system.file("shape/nc.shp", package="sf"))
