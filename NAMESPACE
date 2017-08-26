@@ -3,6 +3,7 @@
 export(cellFromLine)
 export(cellFromPolygon)
 export(cellFromXY)
+export(mask)
 export(projection)
 export(raster)
 export(rasterize.sf)
