@@ -24,5 +24,9 @@ See \code{\link[raster]{cellFrom}} for more details.
 }
 \examples{
 x <- read_sf(system.file("shape/nc.shp", package="sf"))
-cellFromPolygon(raster(x, res = 0.1), x[1:4, ])
+pcells <- cellFromPolygon(raster(x, res = 0.1), x[1:4, ])
+pcells0 <- list(c(27, 28, 29, 30, 116, 117, 118, 119, 120, 206, 207, 208,
+296), c(31, 32, 33, 34, 121, 122, 123), c(35, 36, 37, 38, 39,
+124, 125, 126, 127, 128, 213, 214, 215, 216, 217, 302), c(81,
+82, 83, 84, 85, 171, 172, 262, 352))
 }

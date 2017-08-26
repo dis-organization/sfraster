@@ -144,13 +144,25 @@ cellFromLine <- function(object, lns) {
 #' @return a list of cell numbers
 #' @examples
 #' x <- read_sf(system.file("shape/nc.shp", package="sf"))
-#' cellFromPolygon(raster(x, res = 0.1), x[1:4, ])
+#' pcells <- cellFromPolygon(raster(x, res = 0.1), x[1:4, ])
+#' pcells0 <- list(c(27, 28, 29, 30, 116, 117, 118, 119, 120, 206, 207, 208,
+#' 296), c(31, 32, 33, 34, 121, 122, 123), c(35, 36, 37, 38, 39,
+#' 124, 125, 126, 127, 128, 213, 214, 215, 216, 217, 302), c(81,
+#' 82, 83, 84, 85, 171, 172, 262, 352))
 cellFromPolygon <- function (object, p, weights = FALSE) {
-  if (inherits(p, "sf")) {
-  cellFromPolygon(object, as(p, "Spatial"), weights = weights)
-  } else {
-  raster::cellFromPolygon(object, p, weights = weights)
+  which_cells <- function(x) {
+    wch <- which(!is.na(raster::values(fasterize::fasterize(x, object))))
+    ## this ensures we don't error when no overlap is found
+    if (length(wch) < 1L) NULL else wch
   }
+  if (inherits(p, "sf")) {
+    cells_list <- lapply(split(p, seq_len(nrow(p))), which_cells
+           )
+    #cellFromPolygon(object, as(p, "Spatial"), weights = weights)
+  } else {
+    cells_list <- raster::cellFromPolygon(object, p, weights = weights)
+  }
+  cells_list
 }
 
 #' Rasterize an sf object of polygons
