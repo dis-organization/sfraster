@@ -2,15 +2,23 @@
 % Please edit documentation in R/sfraster.R
 \name{projection}
 \alias{projection}
-\title{Title}
+\title{Get a coordinate reference system (projection)}
 \usage{
 projection(x, asText = TRUE)
 }
 \arguments{
-\item{...}{}
+\item{x}{Raster*, sf, or Spatial object}
+
+\item{asText}{logical. If TRUE, the projection is returned as text. Otherwise a CRS object is returned}
+}
+\value{
+character object
 }
 \description{
-Title
+Get the coordinate reference system (CRS) of a Raster*, sf, or Spatial object.
+}
+\details{
+See \code{\link[raster]{projection}} for more details.
 }
 \examples{
 x <- read_sf(system.file("shape/nc.shp", package="sf"))

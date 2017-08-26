@@ -2,15 +2,25 @@
 % Please edit documentation in R/sfraster.R
 \name{rasterize.sf}
 \alias{rasterize.sf}
-\title{Title}
+\title{Rasterize an sf object of polygons}
 \usage{
 rasterize.sf(x, y, ...)
 }
 \arguments{
-\item{...}{}
+\item{x}{an sf object with a geometry of POLYGON or MULTIPOLYGON}
+
+\item{y}{RasterLayer object (raster template)}
+
+\item{...}{See \code{\link[fasterize]{fasterize}} for more arguments}
+}
+\value{
+A raster of the same size, extent, resolution and projection as the provided raster template
 }
 \description{
-Title
+Rasterize set of sf objects (polygon or mulitpolygon)
+}
+\details{
+See \code{\link[fasterize]{fasterize}} for more details.
 }
 \examples{
 x <- read_sf(system.file("shape/nc.shp", package="sf"))

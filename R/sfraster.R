@@ -1,9 +1,19 @@
-#' Title
+#' Create a RasterLayer object based on a sf object
 #'
-#' @param x
-#' @param ...
+#' Methods to create a RasterLayer object. RasterLayer objects can be created from
+#' scratch, a file, an Extent object, a matrix, an 'image' object, or from a Raster*,
+#' sf, Spatial*, im (spatstat) asc, kasc (adehabitat*), grf (geoR) or kde object.
 #'
-#' @return
+#' See \code{\link[raster]{raster}} for more details.
+#'
+#' @param x filename (character), Extent, Raster*, sf object, SpatialPixels*,
+#'   SpatialGrid*, 'image', matrix, im, or missing.
+#'   Supported file types are the 'native' raster package format and
+#'   those that can be read via rgdal (see readGDAL).
+#' @inheritParams raster::raster
+#'
+#' @return RasterLayer
+#'
 #' @export
 #' @examples
 #' x <- read_sf(system.file("shape/nc.shp", package="sf"))
@@ -17,12 +27,14 @@ raster <- function(x, ...) {
   }
   out
 }
-#' Title
+
+#' Extent
 #'
-#' @param x
-#' @param ...
+#' This function returns an Extent object of an sf object
 #'
-#' @return
+#' @param x An sf object
+#'
+#' @return Extent object
 #'
 #' @examples
 #' x <- read_sf(system.file("shape/nc.shp", package="sf"))
@@ -31,7 +43,7 @@ raster <- function(x, ...) {
 #' xmax(x)
 #' ymin(x)
 #' ymax(x)
-extent.sf <- function(x, ...) {
+extent.sf <- function(x) {
   raster::extent(unclass(sf::st_bbox(x))[c("xmin", "xmax", "ymin", "ymax")])
 }
 setMethod(raster::extent, "sf", extent.sf)
@@ -51,12 +63,17 @@ ymax.sf <- function(x) {
   unclass(sf::st_bbox(x))[c("ymax")]
 }
 setMethod(raster::ymax, "sf", ymax.sf)
-#' Title
+
+#' Get a coordinate reference system (projection)
 #'
-#' @param x
-#' @param ...
+#' Get the coordinate reference system (CRS) of a Raster*, sf, or Spatial object.
 #'
-#' @return
+#' See \code{\link[raster]{projection}} for more details.
+#'
+#' @param x Raster*, sf, or Spatial object
+#' @param asText logical. If TRUE, the projection is returned as text. Otherwise a CRS object is returned
+#'
+#' @return character object
 #' @export
 #' @examples
 #' x <- read_sf(system.file("shape/nc.shp", package="sf"))
@@ -69,16 +86,20 @@ projection <- function(x, asText = TRUE) {
   }
 }
 
-#' Title
+#' Get cell number from x and y coordinates
 #'
-#' @param object
-#' @param xy
+#' Get cell number(s) of a Raster* object from x and y coordinates.
+#'
+#' See \code{\link[raster]{cellFrom}} for more details.
+#'
+#' @param object Raster* object (or a SpatialPixels* or SpatialGrid* object)
+#' @param xy matrix of x and y coordinates, sf, SpatialPoints or SpatialPointsDataFrame object
 #' @export
-#' @return
+#' @return vector of cell numbers
 #'
 #' @examples
 #' x <- read_sf(system.file("shape/nc.shp", package="sf"))
-#' cellFromXY(raster(x), x)  ## checkout hypertidy/tabularaster
+#' cellFromXY(raster(x), x)
 cellFromXY <- function(object, xy) {
   if (inherits(xy, "sf")) {
     xy <- spbabel::sptable(xy) %>% dplyr::select(x_, y_)
@@ -87,12 +108,17 @@ cellFromXY <- function(object, xy) {
     raster::cellFromXY(object, xy)
   }
 }
-#' Title
+
+#' Get cell number from line objects
 #'
-#' @param object
-#' @param lns
+#' Get cell number(s) of a Raster* object from line objects.
+#'
+#' See \code{\link[raster]{cellFrom}} for more details.
+#'
+#' @param object Raster* object (or a SpatialPixels* or SpatialGrid* object)
+#' @param lns sf (linestring or mutlilinestring) or SpatialLines object
 #' @export
-#' @return
+#' @return a list of cell numbers
 #' @examples
 #' x <- read_sf(system.file("shape/nc.shp", package="sf"))
 #' cellFromLine(raster(x), st_cast(x[1:2, ], "MULTILINESTRING"))
@@ -104,13 +130,18 @@ cellFromLine <- function(object, lns) {
     raster::cellFromLine(object, lns)
   }
 }
-#' Title
+
+#' Get cell number from polygons
 #'
-#' @param x
-#' @param y
-#' @param ...
+#' Get cell number(s) of a Raster* object from polygon objects.
+#'
+#' See \code{\link[raster]{cellFrom}} for more details.
+#'
+#' @param object Raster* object (or a SpatialPixels* or SpatialGrid* object)
+#' @param p sf (polygon or mutlipolygon) or SpatialPolygons object
+#' @param weights Logical. If TRUE, the fraction of each cell that is covered is also returned
 #' @export
-#' @return
+#' @return a list of cell numbers
 #' @examples
 #' x <- read_sf(system.file("shape/nc.shp", package="sf"))
 #' cellFromPolygon(raster(x, res = 0.1), x[1:4, ])
@@ -120,14 +151,20 @@ cellFromPolygon <- function (object, p, weights = FALSE) {
   } else {
   raster::cellFromPolygon(object, p, weights = weights)
   }
-    }
-#' Title
+}
+
+#' Rasterize an sf object of polygons
 #'
-#' @param x
-#' @param y
-#' @param ...
+#' Rasterize set of sf objects (polygon or mulitpolygon)
 #'
-#' @return
+#' See \code{\link[fasterize]{fasterize}} for more details.
+#'
+#' @param x an sf object with a geometry of POLYGON or MULTIPOLYGON
+#' @param y RasterLayer object (raster template)
+#' @param ... See \code{\link[fasterize]{fasterize}} for more arguments
+#' @inheritParams fasterize::fasterize
+#'
+#' @return A raster of the same size, extent, resolution and projection as the provided raster template
 #' @export
 #'
 #' @examples
