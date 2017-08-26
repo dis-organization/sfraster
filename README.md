@@ -3,6 +3,8 @@
 sfraster
 ========
 
+Support for Raster with Simple Features from the 'sf' Package
+
 Installation
 ------------
 

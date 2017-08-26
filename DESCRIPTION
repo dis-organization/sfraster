@@ -1,6 +1,6 @@
 Package: sfraster
 Title: Support for Raster with Simple Features from the 'sf' Package
-Version: 0.0.0.9003
+Version: 0.0.0.9004
 Authors@R: c(person("Michael", "Sumner", email = "mdsumner@gmail.com", role = c("aut", "cre")), 
              person("Jakub", "Nowosad", role = "ctb"))
 Description: Support for Raster with Simple Features from the 'sf' Package.

@@ -174,3 +174,39 @@ rasterize.sf <- function(x, y, ...) {
   fasterize::fasterize(sf = x, raster = y, ...)
 }
 setMethod(raster::rasterize, "sf", rasterize.sf)
+
+#' Mask values in a Raster object
+#'
+#' Create a new Raster* object that has the same values as x,
+#' except for the cells that are NA (or other maskvalue) in a 'mask'.
+#' These cells become NA (or other updatevalue).
+#' The mask can be either another Raster* object of the same extent and resolution,
+#' a sf object, or a Spatial* object (e.g. SpatialPolygons) in which case all cells
+#' that are not covered by the sf/Spatial object are set to updatevalue.
+#' You can use inverse=TRUE to set the cells that are not NA (or other maskvalue)
+#' in the mask, or not covered by the Spatial* object, to NA (or other updatvalue).
+#'
+#' See \code{\link[raster]{mask}} for more details.
+#'
+#' @param x Raster* object
+#' @param mask Raster* object, sf object, or a Spatial* object
+#' @inheritParams raster::mask
+#'
+#' @return Raster* object
+#'
+#' @export
+#' @examples
+#' x <- read_sf(system.file("shape/nc.shp", package="sf"))
+#' new_raster <- raster(x)
+#' new_raster[] <- sample(seq_len(ncell(new_raster)))
+#' raster_masked <- mask(new_raster, x)
+#' plot(raster_masked)
+#' plot(x, add = TRUE)
+mask <- function(x, mask, ...) {
+  if (inherits(mask, "sf")) {
+    out <- raster::mask(x, mask = as(mask, "Spatial"), ...)
+  } else {
+    out <- raster::mask(x, mask, ...)
+  }
+  out
+}
