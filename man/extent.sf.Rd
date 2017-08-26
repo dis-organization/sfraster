@@ -8,11 +8,9 @@ extent.sf(x, ...)
 }
 \arguments{
 \item{x}{An sf object}
-
-\item{...}{}
 }
 \value{
-
+Extent object
 }
 \description{
 This function returns an Extent object of an sf object

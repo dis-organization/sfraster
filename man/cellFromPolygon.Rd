@@ -13,11 +13,14 @@ cellFromPolygon(object, p, weights = FALSE)
 
 \item{weights}{Logical. If TRUE, the fraction of each cell that is covered is also returned}
 }
+\value{
+a list of cell numbers
+}
 \description{
 Get cell number(s) of a Raster* object from polygon objects.
 }
 \details{
-See [raster::cellFromPolygon()] for more details.
+See \code{\link[raster]{cellFromPolygon}} for more details.
 }
 \examples{
 x <- read_sf(system.file("shape/nc.shp", package="sf"))

@@ -9,15 +9,16 @@ rasterize.sf(x, y, ...)
 \arguments{
 \item{x}{an sf object with a geometry of POLYGON or MULTIPOLYGON}
 
-\item{y}{RasterLayer object}
-
-\item{...}{}
+\item{y}{RasterLayer object (raster template)}
+}
+\value{
+A raster of the same size, extent, resolution and projection as the provided raster template
 }
 \description{
 Rasterize set of sf objects (polygon or mulitpolygon)
 }
 \details{
-See [fasterize::fasterize()] for more details.
+See \code{\link[fasterize]{fasterize}} for more details.
 }
 \examples{
 x <- read_sf(system.file("shape/nc.shp", package="sf"))
